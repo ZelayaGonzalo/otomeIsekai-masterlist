@@ -1,0 +1,293 @@
+$gray-blue: #edf1f5;
+$black: #3c4853;
+$dark-blue: #53518F;
+$blue:#1C448E;
+$dark-grey:#A9A9C2;
+$fucsia:#C94277;
+.page-container{
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    background-color: $gray-blue;
+    color: $black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+//Options
+
+.options-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .options-top{
+        display: flex;
+        align-items: center;
+    }
+    .search-container{
+        width: 250px;
+        input{
+            width: 100%;
+            border: none;
+            padding: 5px;
+            background-color: $dark-grey;
+            color: $black;
+            font-weight: bold;
+        }
+    }
+    .option-filters{
+        margin: 0 10px;
+        font-size: 13px;
+        font-weight: bold;
+        background-color: $dark-grey;
+        padding: 5px 10px;
+        cursor: pointer;
+        &:hover{
+        }
+    }
+    .filter-selected{
+        background-color: $fucsia;
+        color: white;
+    }
+    .filters-container{
+        background-color: $dark-grey;
+        margin: 10px 0;
+        display: flex;
+        width: 90%;
+        flex-direction: column;
+        padding: 5px;
+        border-radius: 10px;
+        .tag-list-container{
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .tag-container{
+            margin: 2px 5px;
+            display: flex;
+        }
+        .origin-container{
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            margin: 5px 5px;
+            font-size: 14px;
+            .origin-type{
+                margin: 0 10px;
+                border-radius: 10px;
+                background-color: $gray-blue;
+                padding: 4px 8px;
+                cursor: pointer;
+            }
+            .selected{
+                background-color: $fucsia;
+                color: white;
+            }
+        }
+    }
+}
+
+//Sorting
+.sorting-container{
+    width: 100%;
+    display: flex;
+    max-width: 1300px;
+    justify-content: center;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 15px;
+    .sorting-options{
+        display: flex;
+        li{
+            margin: 0 10px;
+            cursor: pointer;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+        .selected{
+            color: $fucsia;
+            text-decoration: underline;
+        }
+
+    }
+}
+
+//Manga List container
+.list-container{
+    background-color: $gray-blue;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    max-width: 1300px;
+}
+//Manga on List
+
+.manga-simple{
+    width: 200px;
+    margin: 7px 15px;
+    .manga-list-img{
+        width: 200px;
+        height: 300px;
+        background-position: center;
+        background-size: cover;
+        border-radius: 10px;
+        background-color: #A9A9C2;
+    }
+}
+
+
+//Manga details
+
+.manga-details-container{
+    position: fixed;
+    top: 20vh;
+    width: 60vw;
+    height: 60vh;
+    min-height: 200px;
+    background-color: $gray-blue;
+    border-radius: 10px;
+    display: flex;
+    overflow: auto;
+    box-shadow: 1px -1px 11px 11px rgba(0,0,0,0.61);
+-webkit-box-shadow: 1px -1px 11px 11px rgba(0,0,0,0.61);
+-moz-box-shadow: 1px -1px 11px 11px rgba(0,0,0,0.61);
+    .details-first-side{
+        margin: 2% 0 0 5%;
+        display: flex;
+        flex-direction: column;
+        .details-image{
+            width: 200px;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+        }
+        .details-links{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: auto;
+        }
+        .details-link{
+            margin-bottom: 0;
+            width: 70%;
+        }
+    }
+    .top{
+        margin:2% 0 0 5%;
+        .details-title{
+        }
+        .alt-titles{
+            margin: 1% 0 2% 0;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .manga-details-small{
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 2%;
+        }
+        .tags-list{
+            display: flex;
+            font-size: 14px;
+            font-weight: bold;
+            color: $dark-blue;
+            flex-wrap: wrap;
+            .tag{
+                margin: 0 2px;
+            }
+        }
+       
+    }
+    .details-description{
+        padding: 2% 5%;
+    }
+    .rec{
+        margin-left: 5%;
+        font-weight: bold;
+        color: $dark-blue;
+    }
+    .close-details{
+        position: absolute;
+        top: 1%;
+        right: 1%;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 50%;
+        padding: 5px 10px;
+        cursor: pointer;
+        z-index: 1;
+        color: $dark-grey;
+        text-decoration: underline;
+    }
+    
+}
+
+//Footer
+.footer-container{
+    min-height: 100px;
+    width: 100%;
+    background-color: $black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p{
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 5px 0;
+        padding: 0 5px;
+        a{
+            color: $dark-grey;
+        }
+    }
+}
+
+.select-pages{
+    display: flex;
+    max-width: 1300px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 16px;
+    border-top: solid $black 1px;
+    .page{
+        margin: 15px 5px;
+        cursor: pointer;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    .selected{
+        color: $fucsia;
+        text-decoration: underline;
+    }
+}
+.clamp-lines{
+    text-align: center;
+    margin-top: 5px;
+}
+
+.pink-btn{
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    margin: 10px 0;
+    background-color: $fucsia;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    &:hover{
+        cursor: pointer;
+    }
+}
