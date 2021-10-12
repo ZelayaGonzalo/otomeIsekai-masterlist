@@ -38,7 +38,7 @@ export default function MangaDetails(props){
                     {pickDescription(props.data)}
                 </div>
                 <div className='rec'>
-                    Recomended by: {props.data.rec}
+                    Recommended by: {props.data.rec}
                 </div>
             </div>
             <div onClick={props.close} className='close-details'>
