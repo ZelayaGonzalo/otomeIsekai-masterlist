@@ -4526,7 +4526,45 @@
     ],
     "rec": 1,
     "notes": null,
-    "anilist": {}
+    "anilist": {
+      "id": 123044,
+      "status": "FINISHED",
+      "countryOfOrigin": "KR",
+      "isLicensed": true,
+      "description": "<i>This is a promotional webtoon for the Korean novel of the same name.</i>\n<br><br>\nOh Mari was a completely ordinary Korean woman until she reincarnated in the novel \"My Dorothea\" as the heroine's best friend, Maristella Janice La Bellefleur. Aware of the fact that the heroine, Dorothea, ends up betraying Maristella, which leads to her execution, she vows to do her utmost to survive and live her new life to the fullest!\n",
+      "genres": [
+        "Fantasy",
+        "Romance"
+      ],
+      "tags": [
+        {
+          "id": 207,
+          "name": "Full Color"
+        }
+      ],
+      "title": {
+        "romaji": "Dear My Friend",
+        "native": "디어 마이 프렌드"
+      },
+      "startDate": {
+        "year": 2018,
+        "month": 10,
+        "day": 20
+      },
+      "coverImage": {
+        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx123044-wWLeWZvK0blr.jpg"
+      },
+      "averageScore": null,
+      "favourites": 1,
+      "siteUrl": "https://anilist.co/manga/123044",
+      "externalLinks": [
+        {
+          "id": 26584,
+          "url": "https://page.kakao.com/home?seriesId=51898703&page=1&orderby=asc",
+          "site": "KakaoPage (KO)"
+        }
+      ]
+    }
   },
   {
     "title": "Dear My Hunny Bunny",

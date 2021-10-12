@@ -134,11 +134,11 @@ export default function Home() {
   return (
     <div className='page-container'>
       <Head>
-        <title>r/otomeIsekai Masterlist</title>
+        <title>r/otomeIsekai Masterlist (develoṕment)</title>
         <meta name="otomeIsekai Masterlist" content="otomeIsekai Masterlist web version" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h2 style={{margin:'20px 0'}}>r/otomeIsekai Masterlist</h2>
+      <h2 style={{margin:'20px 0'}}>r/otomeIsekai Masterlist Development branch</h2>
       <Options search={handleSearch} searchValue={search} currentTags={currentTags} currentOrigins={origins} currentStatus={currentStatus} addTag={addTag} removeTag={removeTag}
         addOrigin={addOrigin} removeOrigin={removeOrigin} addStatus={addStatus} removeStatus={removeStatus}/>
       <Sorting currentSort={sortType} sort={sortList}/>
