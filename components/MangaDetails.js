@@ -1,15 +1,14 @@
 export default function MangaDetails(props){
-    let aninfo = ((props.data.anilist != {} ) && props.data.anilist) || null
     return(
         <div className='manga-details-container'>
             <div className='details-first-side'>
-                <div className='details-image' style={{backgroundImage:`url(${props.data.anilist.coverImage && props.data.anilist.coverImage.extraLarge})`}}>
+                <div className='details-image' style={{backgroundImage:`url(${props.data.cover && props.data.cover})`}}>
                 </div>
-                {(aninfo && aninfo.siteUrl) && <div className='details-links'>
-                    <a href={aninfo.siteUrl} target="_blank" rel="noopener noreferrer" className='pink-btn details-link'>
+                {(props.data && props.data.url) && <div className='details-links'>
+                    <a href={props.data.url} target="_blank" rel="noopener noreferrer" className='pink-btn details-link'>
                         Anilist
                     </a>
-                    {aninfo.externalLinks.map(link => (<a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer" className='pink-btn details-link'>{link.site}</a>))}
+                    {props.data.externalLinks.map(link => (<a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer" className='pink-btn details-link'>{link.site}</a>))}
                 </div>}
             </div>
             <div className='details-info'>
@@ -18,27 +17,27 @@ export default function MangaDetails(props){
                         {props.data.title}
                     </h2>
                     <h4 className='details-title'>
-                        {aninfo.title && aninfo.title.native}
+                        {props.data.native_title}
                     </h4>
                     <div className='alt-titles'>
-                        {props.data.altNames && props.data.altNames.map(title=> <p key={title}>{title}</p>)}
+                        {props.data.alt_titles && props.data.alt_titles.map(title=> <p key={title}>{title}</p>)}
                     </div>
-                    {props.data.tags && <ul className='tags-list'>
-                        {props.data.tags.map(tag=><li key={tag+props.data.title} className='tag'>{tag},</li>)}
+                    {props.data.genres && <ul className='tags-list'>
+                        {props.data.genres.map((genre,index)=><li key={genre+index} className='genre'>{genre}{(props.data.genres.length -1 !== index) &&','}</li>)}
                     </ul>}
-                    {aninfo!={} &&
-                        <div className='manga-details-small'>
-                            <p>{aninfo.startDate && `Release Date: ${aninfo.startDate.day}/${aninfo.startDate.month}/${aninfo.startDate.year}`}</p>
-                            <p>Status: {aninfo.status}</p>
-                            <p>Licensed: {aninfo.isLicensed ? 'Yes': 'No'}</p>
-                        </div>
-                    }
+                    {props.data.tags && <ul className='tags-list'>
+                        {props.data.tags.map((tag,index)=>{
+                            return <li key={tag} className='tag'>{tag}{(props.data.tags.length -1 !== index) &&','}</li>
+                            })}
+                    </ul>}
+                    <div className='manga-details-small'>
+                        <p>{props.data.startDate && `Release Date: ${props.data.startDate.day}/${props.data.startDate.month}/${props.data.startDate.year}`}</p>
+                        <p>Status: {props.data.status}</p>
+                        <p>Licensed: {props.data.isLicensed ? `Yes (${getSource(props.data)})`: 'No'}</p>
+                    </div>
                 </div>
                 <div className='details-description'>
                     {pickDescription(props.data)}
-                </div>
-                <div className='rec'>
-                    Recomended by: {props.data.rec}
                 </div>
             </div>
             <div onClick={props.close} className='close-details'>
@@ -49,11 +48,41 @@ export default function MangaDetails(props){
 }
 
 function pickDescription(item){
-    if(item.anilist.description){
-        return <div dangerouslySetInnerHTML={{__html: item.anilist.description }}></div>
+    if(item.description){
+        return <div dangerouslySetInnerHTML={{__html: item.description }}></div>
     }
     else if(item.description){
         return item.description
     }
     else return ''
+}
+
+function getSource(item){
+    let source=''
+    if(item.isLicensed){
+       item.externalLinks.forEach(link=>{
+            console.log(link)
+            if((link.site === "Official Site" || link.site ==="Webtoons") && source===''){
+                let url = new URL(link.url)
+                if(url.hostname === 'm.wecomics.com'){
+                    source='Wecomics'
+                }
+                else{
+                    source=getHostName(link.url)
+                }
+            }
+        })
+    }
+    if(source === 'sevenseasentertainment') source = 'Seven Seas'
+    return source.charAt(0).toUpperCase() + source.slice(1);
+}
+function getHostName(url) {
+	var match = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i);
+	if (match != null && match.length > 2 && typeof match[2] === 'string' && match[2].length > 0) {
+		var hostname = match[2].split(".");
+		return hostname[0];
+	}
+	else {
+		return null;
+	}
 }

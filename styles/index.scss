@@ -13,6 +13,7 @@ $fucsia:#C94277;
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 
 //Options
@@ -73,11 +74,12 @@ $fucsia:#C94277;
         .origin-container{
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
             font-weight: bold;
-            margin: 5px 5px;
+            margin: 0px 5px;
             font-size: 14px;
             .origin-type{
-                margin: 0 10px;
+                margin: 5px 10px;
                 border-radius: 10px;
                 background-color: $gray-blue;
                 padding: 4px 8px;
@@ -203,6 +205,11 @@ $fucsia:#C94277;
             flex-wrap: wrap;
             .tag{
                 margin: 0 2px;
+            }
+            .genre{
+                color: $fucsia;
+                font-size: 15px;
+                margin: 2px 5px;
             }
         }
        

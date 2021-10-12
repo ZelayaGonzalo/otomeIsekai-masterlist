@@ -9,7 +9,6 @@ export default function Sorting(props){
                 <li className={checkType(1) ? 'selected sort-unit': 'sort-unit'} onClick={()=>props.sort(1)}>Z..A</li>
                 <li className={checkType(3) ? 'selected sort-unit': 'sort-unit'} onClick={()=>props.sort(3)}>Newest</li>
                 <li className={checkType(4) ? 'selected sort-unit': 'sort-unit'} onClick={()=>props.sort(4)}>Oldest</li>
-                <li className={checkType(2) ? 'selected sort-unit': 'sort-unit'} onClick={()=>props.sort(2)}>Recomended</li>
             </ul>
         </div>
     )

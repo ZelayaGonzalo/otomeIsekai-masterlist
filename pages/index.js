@@ -17,10 +17,11 @@ export default function Home() {
   const [search, setSearch] = useState('')
   //filters
   const [currentTags, setCurrentTags] = useState([])
+  const [currentGenres, setCurrentGenres] = useState([])
   const [origins, setOrigins] = useState([])
   const [currentStatus,setCurrentStatus] = useState([])
   //Sorting
-  const [sortType, setSortType] = useState(0)
+  const [sortType, setSortType] = useState(-1)
 
   const [list, setList] = useState(MasterList)
   const [currentPage, setCurrentPage] = useState(1)
@@ -54,6 +55,23 @@ export default function Home() {
     setCurrentTags(prev=>{
       const newArray = [...prev]
       let index = newArray.findIndex(item=> item === tag)
+      newArray.splice(index,1)
+      return newArray
+    })
+    setCurrentPage(1)
+  }
+  function addGenre(genre){
+    setCurrentGenres(prev=>{
+      const newArray = [...prev]
+      newArray.push(genre)
+      return newArray
+    })
+    setCurrentPage(1)
+  }
+  function removeGenre(genre){
+    setCurrentGenres(prev=>{
+      const newArray = [...prev]
+      let index = newArray.findIndex(item=> item === genre)
       newArray.splice(index,1)
       return newArray
     })
@@ -134,20 +152,23 @@ export default function Home() {
   return (
     <div className='page-container'>
       <Head>
-        <title>r/otomeIsekai Masterlist (develoṕment)</title>
+        <title>r/otomeIsekai Masterlist</title>
         <meta name="otomeIsekai Masterlist" content="otomeIsekai Masterlist web version" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h2 style={{margin:'20px 0'}}>r/otomeIsekai Masterlist Development branch</h2>
+      <h2 style={{margin:'20px 0'}}>r/otomeIsekai Masterlist</h2>
       <Options search={handleSearch} searchValue={search} currentTags={currentTags} currentOrigins={origins} currentStatus={currentStatus} addTag={addTag} removeTag={removeTag}
-        addOrigin={addOrigin} removeOrigin={removeOrigin} addStatus={addStatus} removeStatus={removeStatus}/>
+        addOrigin={addOrigin} removeOrigin={removeOrigin} addStatus={addStatus} removeStatus={removeStatus}
+        addGenre={addGenre} removeGenre={removeGenre} currentGenres={currentGenres}
+        />
       <Sorting currentSort={sortType} sort={sortList}/>
 
       <div className='list-container' ref={myRef}>
           {list.filter(item=> filterSearch(item,search))
           .filter(item=> filterAll(item.tags,currentTags))
-          .filter(item=> filterOR(item.anilist.countryOfOrigin,origins))
-          .filter(item=> filterOR(item.anilist.status,currentStatus))
+          .filter(item=> filterAll(item.genres,currentGenres))
+          .filter(item=> filterOR(item.origin,origins))
+          .filter(item=> filterOR(item.status,currentStatus))
           .filter((item,index,array)=>{
             if(index === 0){
               setPages(array.length)
@@ -174,9 +195,12 @@ export default function Home() {
 //Filter Functions
 function filterSearch(item,value){
   if(item.title.toLocaleLowerCase().includes(value.toLocaleLowerCase())) return true
+  if(item.native_title){
+    if(item.native_title.toLocaleLowerCase().includes(value.toLocaleLowerCase())) return true
+  }
   let flag = false
-  if(item.altNames && !flag){
-    item.altNames.forEach(name=>{
+  if(item.alt_titles && !flag){
+    item.alt_titles.forEach(name=>{
       if(name.toLocaleLowerCase().includes(value.toLocaleLowerCase())) {flag= true}
     })
   }
@@ -283,8 +307,8 @@ function recommended(list){
 
 function getDate(item){
   
-  if(item.anilist != {} && item.anilist.startDate){
-    return new Date(`${item.anilist.startDate.year || 2000}-${item.anilist.startDate.month || 1}-${item.anilist.startDate.day || 1}`)
+  if(item.anilist != {} && item.startDate){
+    return new Date(`${item.startDate.year || 2000}-${item.startDate.month || 1}-${item.startDate.day || 1}`)
   } 
   return 0
 }
