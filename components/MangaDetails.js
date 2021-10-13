@@ -61,7 +61,6 @@ function getSource(item){
     let source=''
     if(item.isLicensed){
        item.externalLinks.forEach(link=>{
-            console.log(link)
             if((link.site === "Official Site" || link.site ==="Webtoons") && source===''){
                 let url = new URL(link.url)
                 if(url.hostname === 'm.wecomics.com'){

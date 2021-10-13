@@ -36,6 +36,7 @@ $fucsia:#C94277;
             background-color: $dark-grey;
             color: $black;
             font-weight: bold;
+            border-radius: 10px;
         }
     }
     .option-filters{
@@ -45,12 +46,12 @@ $fucsia:#C94277;
         background-color: $dark-grey;
         padding: 5px 10px;
         cursor: pointer;
-        &:hover{
-        }
+        border-radius: 10px;
     }
     .filter-selected{
         background-color: $fucsia;
         color: white;
+        border-radius: 10px;
     }
     .filters-container{
         background-color: $dark-grey;
@@ -298,4 +299,12 @@ $fucsia:#C94277;
     &:hover{
         cursor: pointer;
     }
+}
+.changelog-container{
+    background-color: $dark-grey;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

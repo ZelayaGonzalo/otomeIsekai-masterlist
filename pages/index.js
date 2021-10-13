@@ -81,7 +81,6 @@ export default function Home() {
     setOrigins(prev=>{
       const newArray =[...prev]
       newArray.push(origin)
-      console.log(newArray)
       return newArray
     })
     setCurrentPage(1)
