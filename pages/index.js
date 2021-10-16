@@ -4,7 +4,7 @@ import MangaOnList from '../components/MangaOnList'
 import MasterList from '../data/Masterlist.json'
 import Options from '../components/Options'
 import Sorting from '../components/Sorting'
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import MangaDetails from '../components/MangaDetails'
 import CurrentPage from '../components/CurrentPage'
 
@@ -27,6 +27,10 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1)
   const [showDetails,setShowDetails] = useState(false)
   const [mangaToShow, setMangaToShow] = useState(null)
+
+  useEffect(()=>{
+    sortList(2)
+  },[])
 
   let numberOfPages = 1
 
@@ -123,7 +127,7 @@ export default function Home() {
           newArray = ZtoA(newArray)
           break;
         case 2:
-          newArray = recommended(newArray)
+          newArray = added(MasterList)
           break;
         case 3:
           newArray = newest(newArray)
@@ -291,16 +295,8 @@ function newest(list){
 function oldest(list){
   return(newest(list).reverse())
 }
-function recommended(list){
-  return (list.sort(function(a,b){
-    if(a.rec > b.rec){
-      return -1
-    }
-    else if(a.rec < b.rec){
-      return 1
-    }
-    else return 0
-  }))
+function added(list){
+  return list.reverse()
 }
 
 

@@ -307,4 +307,19 @@ $fucsia:#C94277;
     display: flex;
     flex-direction: column;
     align-items: center;
+    .update-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .updates-list{
+            background-color: $gray-blue;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hidden{
+            height: 20px;
+            overflow: hidden;
+        }
+    }
 }

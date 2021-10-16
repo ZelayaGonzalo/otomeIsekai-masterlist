@@ -4,10 +4,10 @@ export default function MangaDetails(props){
             <div className='details-first-side'>
                 <div className='details-image' style={{backgroundImage:`url(${props.data.cover && props.data.cover})`}}>
                 </div>
-                {(props.data && props.data.url) && <div className='details-links'>
-                    <a href={props.data.url} target="_blank" rel="noopener noreferrer" className='pink-btn details-link'>
+                {(props.data) && <div className='details-links'>
+                   {props.data.url && <a href={props.data.url} target="_blank" rel="noopener noreferrer" className='pink-btn details-link'>
                         Anilist
-                    </a>
+                    </a>}
                     {props.data.externalLinks.map(link => (<a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer" className='pink-btn details-link'>{link.site}</a>))}
                 </div>}
             </div>
