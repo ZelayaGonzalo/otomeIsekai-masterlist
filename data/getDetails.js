@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import MasterList from './Masterlist.json'
+import MasterList from '../data/Masterlist.json'
 
 export default function GetDetails(){
     useEffect(()=>{
-        addDetails(641,(MasterList.length -1),MasterList)
+        addOrigin(611,MasterList.length -1,MasterList)
     },[])
     return(
         <div>
@@ -11,6 +11,46 @@ export default function GetDetails(){
         </div>
     )
 }
+
+async function addOrigin(start,end,array){
+  var query = `
+query ($id: Int, $search: String) {
+    Media (id: $id, search: $search, type:MANGA) {
+      id
+      countryOfOrigin
+    }
+}
+`;
+  let variables={}
+  const newArray = [...array]
+  for(let i=start; i <= end ;i++){
+    variables={
+      id:newArray[i].id,
+    }
+    console.log(variables)
+    let url = 'https://graphql.anilist.co',
+    options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query: query,
+            variables: variables
+        })
+    };
+    const data = await fetch(url, options).then(handleResponse)
+    .then(handleData)
+    await console.log('newdata',data)
+    if (data && data.data){
+      newArray[i].origin =  data.data.Media.countryOfOrigin
+    }
+  }
+  console.log(newArray)
+  export2txt(newArray,end)
+}
+
 
 async function addDetails(start,end,array){
     var query = `
