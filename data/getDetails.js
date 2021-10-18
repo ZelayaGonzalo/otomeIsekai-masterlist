@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import MasterList from '../data/Masterlist.json'
+import MasterList from './Masterlist.json'
 
 export default function GetDetails(){
     useEffect(()=>{

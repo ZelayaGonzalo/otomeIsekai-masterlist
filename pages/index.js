@@ -4,7 +4,7 @@ import MangaOnList from '../components/MangaOnList'
 import MasterList from '../data/Masterlist.json'
 import Options from '../components/Options'
 import Sorting from '../components/Sorting'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import MangaDetails from '../components/MangaDetails'
 import CurrentPage from '../components/CurrentPage'
 
@@ -127,7 +127,7 @@ export default function Home() {
           newArray = ZtoA(newArray)
           break;
         case 2:
-          newArray = added(MasterList)
+          newArray = [...MasterList].reverse()
           break;
         case 3:
           newArray = newest(newArray)
