@@ -323,3 +323,21 @@ $fucsia:#C94277;
         }
     }
 }
+.creator-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .fill-data{
+        margin-top: 20px;
+        form{
+            display: flex;
+            flex-direction: column;
+            label{
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+       
+    }
+}
