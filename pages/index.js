@@ -187,8 +187,12 @@ export default function Home() {
       </ul>
       {showDetails && <MangaDetails data={mangaToShow} close={closeDetails}/>}
       <footer className='footer-container'>
+        <p>Hello, to anyone reading this:</p>
+        <p>{"First of all thank you for all the love you sent me for this. I didn't expect this to blow up like it did and I'm very happy that this app is useful to you."}</p>
+        <p>{"Now, this is probably the first and last update I'll make. I was planning on doing updates whenever I could but I talked it over with the owners of the list and they'll take over and update this app."} </p>
+        <p>{"As for me I'll help them get it up and running and then go back to lurking, maybe will work on something bigger in the future, as I learn more technologies a lot of ideas open up but for now I'll focus on studying."} </p>
+        <p style={{marginBottom:'30px'}}>{"Once again, Thank you!    -0pt1c0"}</p>
         <p>Made using a r/otomeIsekai Masterlist as a base, this is a simple project I made to practice React,NextJs</p>
-        <p>Titles,Tags and Alternative names were extracted from the masterlist. The rest was fetched from Anilist on 10/10/12</p>
         <p><a href='https://github.com/ZelayaGonzalo/otomeIsekai-masterlist' target='_blank' rel='noreferrer noopener'>Go to Repository</a></p>
         
       </footer>
