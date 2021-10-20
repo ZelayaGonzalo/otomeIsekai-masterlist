@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import Tags from '../data/Tags.json'
+import Tags from '../data/newTags.json'
 import Tag from './Tag'
+import Genres from '../data/Genres.json'
 
 export default function Options(props){
     const tags = Tags.sort()
@@ -21,8 +22,19 @@ export default function Options(props){
             props.removeStatus(array)
         }
     }
+    function addOrRemoveGenre(string){
+        if(!checkGenre(string)){
+            props.addGenre(string)
+        }
+        else{
+            props.removeGenre(string)
+        }
+    }
     function checkOrigin(stringToCheck){
         return props.currentOrigins.includes(stringToCheck)
+    }
+    function checkGenre(string){
+        return props.currentGenres.includes(string)
     }
     function checkStatus(string){
         return props.currentStatus.includes(string)
@@ -42,6 +54,12 @@ export default function Options(props){
                     <div className='tag-list-container'>
                         {tags.map(tag=><Tag key={tag} name={tag} addTag={props.addTag} removeTag={props.removeTag} currentTags={props.currentTags}/>)}
                     </div>
+                    {
+                        <ul className='origin-container'>
+                            Genres:
+                            {Genres.map(genre=><li key={genre} className={checkGenre(genre) ? 'origin-type selected': 'origin-type'} onClick={()=>addOrRemoveGenre(genre)}>{genre}</li>)}
+                        </ul>
+                    }
                     <ul className='origin-container'>
                         Type:
                         <li className={checkOrigin('JP') ? 'origin-type selected': 'origin-type'} onClick={()=>addOrRemoveOrigin('JP')}>Manga</li>

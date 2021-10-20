@@ -4,7 +4,7 @@ import MangaOnList from '../components/MangaOnList'
 import MasterList from '../data/Masterlist.json'
 import Options from '../components/Options'
 import Sorting from '../components/Sorting'
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import MangaDetails from '../components/MangaDetails'
 import CurrentPage from '../components/CurrentPage'
 
@@ -17,15 +17,20 @@ export default function Home() {
   const [search, setSearch] = useState('')
   //filters
   const [currentTags, setCurrentTags] = useState([])
+  const [currentGenres, setCurrentGenres] = useState([])
   const [origins, setOrigins] = useState([])
   const [currentStatus,setCurrentStatus] = useState([])
   //Sorting
-  const [sortType, setSortType] = useState(0)
+  const [sortType, setSortType] = useState(-1)
 
   const [list, setList] = useState(MasterList)
   const [currentPage, setCurrentPage] = useState(1)
   const [showDetails,setShowDetails] = useState(false)
   const [mangaToShow, setMangaToShow] = useState(null)
+
+  useEffect(()=>{
+    sortList(2)
+  },[])
 
   let numberOfPages = 1
 
@@ -59,11 +64,27 @@ export default function Home() {
     })
     setCurrentPage(1)
   }
+  function addGenre(genre){
+    setCurrentGenres(prev=>{
+      const newArray = [...prev]
+      newArray.push(genre)
+      return newArray
+    })
+    setCurrentPage(1)
+  }
+  function removeGenre(genre){
+    setCurrentGenres(prev=>{
+      const newArray = [...prev]
+      let index = newArray.findIndex(item=> item === genre)
+      newArray.splice(index,1)
+      return newArray
+    })
+    setCurrentPage(1)
+  }
   function addOrigin(origin){
     setOrigins(prev=>{
       const newArray =[...prev]
       newArray.push(origin)
-      console.log(newArray)
       return newArray
     })
     setCurrentPage(1)
@@ -106,7 +127,7 @@ export default function Home() {
           newArray = ZtoA(newArray)
           break;
         case 2:
-          newArray = recommended(newArray)
+          newArray = [...MasterList].reverse()
           break;
         case 3:
           newArray = newest(newArray)
@@ -140,14 +161,17 @@ export default function Home() {
       </Head>
       <h2 style={{margin:'20px 0'}}>r/otomeIsekai Masterlist</h2>
       <Options search={handleSearch} searchValue={search} currentTags={currentTags} currentOrigins={origins} currentStatus={currentStatus} addTag={addTag} removeTag={removeTag}
-        addOrigin={addOrigin} removeOrigin={removeOrigin} addStatus={addStatus} removeStatus={removeStatus}/>
+        addOrigin={addOrigin} removeOrigin={removeOrigin} addStatus={addStatus} removeStatus={removeStatus}
+        addGenre={addGenre} removeGenre={removeGenre} currentGenres={currentGenres}
+        />
       <Sorting currentSort={sortType} sort={sortList}/>
 
       <div className='list-container' ref={myRef}>
           {list.filter(item=> filterSearch(item,search))
           .filter(item=> filterAll(item.tags,currentTags))
-          .filter(item=> filterOR(item.anilist.countryOfOrigin,origins))
-          .filter(item=> filterOR(item.anilist.status,currentStatus))
+          .filter(item=> filterAll(item.genres,currentGenres))
+          .filter(item=> filterOR(item.origin,origins))
+          .filter(item=> filterOR(item.status,currentStatus))
           .filter((item,index,array)=>{
             if(index === 0){
               setPages(array.length)
@@ -163,8 +187,12 @@ export default function Home() {
       </ul>
       {showDetails && <MangaDetails data={mangaToShow} close={closeDetails}/>}
       <footer className='footer-container'>
+        <p>Hello, to anyone reading this:</p>
+        <p>{"First of all thank you for all the love you sent me for this. I didn't expect this to blow up like it did and I'm very happy that this app is useful to you."}</p>
+        <p>{"Now, this is probably the first and last update I'll make. I was planning on doing updates whenever I could but I talked it over with the owners of the list and they'll take over and update this app."} </p>
+        <p>{"As for me I'll help them get it up and running and then go back to lurking, maybe will work on something bigger in the future, as I learn more technologies a lot of ideas open up but for now I'll focus on studying."} </p>
+        <p style={{marginBottom:'30px'}}>{"Once again, Thank you!    -0pt1c0"}</p>
         <p>Made using a r/otomeIsekai Masterlist as a base, this is a simple project I made to practice React,NextJs</p>
-        <p>Titles,Tags and Alternative names were extracted from the masterlist. The rest was fetched from Anilist on 10/10/12</p>
         <p><a href='https://github.com/ZelayaGonzalo/otomeIsekai-masterlist' target='_blank' rel='noreferrer noopener'>Go to Repository</a></p>
         
       </footer>
@@ -174,9 +202,12 @@ export default function Home() {
 //Filter Functions
 function filterSearch(item,value){
   if(item.title.toLocaleLowerCase().includes(value.toLocaleLowerCase())) return true
+  if(item.native_title){
+    if(item.native_title.toLocaleLowerCase().includes(value.toLocaleLowerCase())) return true
+  }
   let flag = false
-  if(item.altNames && !flag){
-    item.altNames.forEach(name=>{
+  if(item.alt_titles && !flag){
+    item.alt_titles.forEach(name=>{
       if(name.toLocaleLowerCase().includes(value.toLocaleLowerCase())) {flag= true}
     })
   }
@@ -268,23 +299,15 @@ function newest(list){
 function oldest(list){
   return(newest(list).reverse())
 }
-function recommended(list){
-  return (list.sort(function(a,b){
-    if(a.rec > b.rec){
-      return -1
-    }
-    else if(a.rec < b.rec){
-      return 1
-    }
-    else return 0
-  }))
+function added(list){
+  return list.reverse()
 }
 
 
 function getDate(item){
   
-  if(item.anilist != {} && item.anilist.startDate){
-    return new Date(`${item.anilist.startDate.year || 2000}-${item.anilist.startDate.month || 1}-${item.anilist.startDate.day || 1}`)
+  if(item.anilist != {} && item.startDate){
+    return new Date(`${item.startDate.year || 2000}-${item.startDate.month || 1}-${item.startDate.day || 1}`)
   } 
   return 0
 }
